@@ -29,4 +29,3 @@ countWords = interact wordCount
 -- ex.4
 countChar = interact wordCount
 	where wordCount input = show (length input) ++ "\n"
-
