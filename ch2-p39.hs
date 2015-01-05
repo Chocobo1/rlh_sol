@@ -1,6 +1,6 @@
 -- ex.1
 {-
-Return a element from the list.
+Return an element from the list.
 It cannot return an empty list nor another data type which is different from the input list.
 -}
 
