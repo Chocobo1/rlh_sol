@@ -82,14 +82,14 @@ looper _ _ = []
 
 firstWord :: String -> String
 firstWord x
-	| concat (lines x) == "" = []  -- stop case for `head`
+	| null (concat (lines x)) = []  -- stop case for `head`
 	| otherwise = looper head (lines x)
 
 
 -- ex.4
 transpose :: String -> String
 transpose x
-	| concat (lines x) == "" = []  -- stop case for `tail`
+	| null (concat (lines x)) = []  -- stop case for `tail`
 	| otherwise = firstWord x ++ "\n" ++ transpose (unlines (looper tail (lines x)))
 
 
