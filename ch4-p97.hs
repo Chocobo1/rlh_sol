@@ -3,7 +3,7 @@ import Data.List
 
 -- ex.1
 asInt_fold1 :: String -> Int
-asInt_fold1 x = foldl' helper 0 x
+asInt_fold1 xs = foldl' helper 0 xs
 	where
 		helper acc x = acc * 10 + (digitToInt x)
 
@@ -18,8 +18,8 @@ asInt_fold1_Test = do
 -- ex.2
 asInt_fold2 :: String -> Int
 asInt_fold2 [] = 0
-asInt_fold2 x
-	| head x == '-' = (asInt_fold2 (tail x)) * (-1)
+asInt_fold2 xs
+	| head xs == '-' = (asInt_fold2 (tail xs)) * (-1)
 	| otherwise = foldl' helper 0 x
 	where
 		helper acc x = acc * 10 + digitToInt x
@@ -36,14 +36,14 @@ asInt_fold2_Test = do
 
 -- ex.3
 asInt_fold3 :: String -> Int
-asInt_fold3 x
-	| null x = error "empty"
-	| x == "-" = error "negative empty"
-	| x == "-3" = error "negative three"
-	| x == "314159265358979323846" = error "number pi"
-	| elem '.' x = error "decimal point"
-	| head x == '-' = (asInt_fold3 (tail x)) * (-1)
-	| otherwise = foldl' helper 0 x
+asInt_fold3 xs
+	| null xs = error "empty"
+	| xs == "-" = error "negative empty"
+	| xs == "-3" = error "negative three"
+	| xs == "314159265358979323846" = error "number pi"
+	| elem '.' xs = error "decimal point"
+	| head xs == '-' = (asInt_fold3 (tail xs)) * (-1)
+	| otherwise = foldl' helper 0 xs
 	where
 		helper acc x = acc * 10 + digitToInt x
 
@@ -66,11 +66,11 @@ data Ei = Rightt Int | Leftt ErrorMessage
 	deriving (Show)
 
 asInt_either :: String -> Ei
-asInt_either x
-	| null a = Rightt (asInt_fold2 x)
+asInt_either xs
+	| null a = Rightt (asInt_fold2 xs)
 	| otherwise = Leftt ("non-digit \'" ++ (head a) : "\'")
 	where
-		a = dropWhile isHexDigit (dropWhile (== '-') x)
+		a = dropWhile isHexDigit (dropWhile (== '-') xs)
 
 asInt_either_Test = do
 	print $ asInt_either "0"
@@ -95,7 +95,7 @@ asInt_either_Test = do
 
 -- ex.6
 concat_fold :: [[a]] -> [a]
-concat_fold x = foldr (++) [] x
+concat_fold xs = foldr (++) [] xs
 
 concat_fold_Test = do
 	print $ concat_fold [""]
@@ -116,7 +116,7 @@ takeWhileRe f (x:xs)
 
 takeWhileFold :: (a -> Bool) -> [a] -> [a]
 takeWhileFold _ [] = []
-takeWhileFold f x = foldr helper [] x
+takeWhileFold f xs = foldr helper [] xs
 	where helper x acc
 		| f x = x:acc
 		| otherwise = []
@@ -140,7 +140,7 @@ takeWhileTest = do
 -- using foldr is not natural...
 groupByFoldl :: (a -> a -> Bool) -> [a] -> [[a]]
 groupByFoldl _ [] = []
-groupByFoldl f x = foldl' helper [[]] x
+groupByFoldl f xs = foldl' helper [[]] xs
 	where
 		helper acc x  -- acc : [[a]]
 			| null (last acc) = [[x]]
@@ -156,8 +156,8 @@ groupByFoldTest = do
 	print $ func cmp [1..10]
 	print $ func cmp []
 	where
-	--	cmp = (\ x y -> (x*y) `mod` 3 == 0 )
-		cmp = (\ x y -> even x )
+	--	cmp = (\ x y -> (x*y) `mod` 3 == 0)
+		cmp = (\ x y -> even x)
 	--	func = groupBy
 		func = groupByFoldl
 
@@ -187,10 +187,10 @@ anyFoldTest = do
 
 -- all 3 folds are applicable. however, foldl' is better, because it uses strict evaluation so that haskell only have to expand out the expression one at a time
 cycleFoldl :: [a] -> [a]
-cycleFoldl x = foldl' (++) x [cycleFoldl x]
+cycleFoldl xs = foldl' (++) xs [cycleFoldl xs]
 
 cycleFoldr :: [a] -> [a]
-cycleFoldr x = foldr (++) (cycleFoldr x) [x]
+cycleFoldr xs = foldr (++) (cycleFoldr xs) [xs]
 
 cycleFoldTest = do
 	print $ func [1..5]

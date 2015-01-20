@@ -3,7 +3,7 @@ import Data.List
 
 -- ex.1
 lengthh [] = 0
-lengthh (x:xs) = 1 + lengthh(xs)
+lengthh (x:xs) = 1 + (lengthh xs)
 
 
 lengthhTest = do
@@ -22,7 +22,7 @@ lengthh :: [a] -> Int
 -- ex.3
 mean :: [Double] -> Double
 mean [] = 0.0
-mean x = summ x / fromIntegral( len x )
+mean xs = (summ xs) / (fromIntegral (len xs))
 	where
 		summ :: [Double] -> Double
 		summ [] = 0.0
@@ -42,14 +42,14 @@ lastt (x:xs)
 -- ex.4
 palindrome :: [a] -> [a]
 palindrome [] = []
-palindrome (x:xs) = ( x : palindrome xs ++ [x] )
+palindrome (x:xs) = x : palindrome xs ++ [x]
 
 
 -- ex.5
 ifp :: (Eq a) => [a] -> Bool
 ifp [] = False
-ifp x
-	| (x == rev x) = True
+ifp xs
+	| (xs == rev xs) = True
 	| otherwise = False
 	where 
 		rev :: [a] -> [a]
@@ -140,9 +140,9 @@ grahamScan :: [Cartesian2D] -> [(Cartesian2D,Cartesian2D)]
 grahamScan ori_set = helperFunc sorted_set
 	where
 		-- find the initial point
-		getX = map (\ (x,y) -> x )
-		getY = map (\ (x,y) -> y )
-		eqYSet t = filter (\ (x,y) -> t == y )
+		getX = map (\ (x,y) -> x)
+		getY = map (\ (x,y) -> y)
+		eqYSet t = filter (\ (x,y) -> t == y)
 
 		y_value = minimum (getY ori_set)
 		x_value = minimum (getX (eqYSet y_value ori_set))

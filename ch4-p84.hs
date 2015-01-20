@@ -81,16 +81,16 @@ looper f (x:xs) = (f x):(looper f xs)
 looper _ _ = []
 
 firstWord :: String -> String
-firstWord x
-	| null (concat (lines x)) = []  -- stop case for `head`
-	| otherwise = looper head (lines x)
+firstWord xs
+	| null (concat (lines xs)) = []  -- stop case for `head`
+	| otherwise = looper head (lines xs)
 
 
 -- ex.4
 transpose :: String -> String
-transpose x
-	| null (concat (lines x)) = []  -- stop case for `tail`
-	| otherwise = firstWord x ++ "\n" ++ transpose (unlines (looper tail (lines x)))
+transpose xs
+	| null (concat (lines xs)) = []  -- stop case for `tail`
+	| otherwise = firstWord xs ++ "\n" ++ transpose (unlines (looper tail (lines xs)))
 
 
 main = do
