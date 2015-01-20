@@ -165,7 +165,7 @@ groupByFoldTest = do
 -- ex.10
 -- see more: http://www.haskell.org/haskellwiki/Foldr_Foldl_Foldl%27
 
--- only foldr is applicable, because which has lazy evaluation can handle infinite list
+-- only foldr is applicable, because which has lazy evaluation so that it's possible to handle infinite list
 anyFoldr :: (a -> Bool) -> [a] -> Bool
 anyFoldr f xs = foldr helper False xs
 	where
